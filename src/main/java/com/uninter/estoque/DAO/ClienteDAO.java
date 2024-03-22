@@ -4,6 +4,7 @@ import com.uninter.estoque.model.Cliente;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import javax.swing.text.html.parser.Entity;
@@ -11,6 +12,7 @@ import java.util.List;
 
 //semelhante ao repository, atua implementando a lógica de acesso aos dados, separando as regras de negócio das regras de acesso ao banco de dados.
 @Repository
+@Transactional
 public class ClienteDAO implements CRUD<Cliente, Long> {
 
     @PersistenceContext
