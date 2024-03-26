@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -34,4 +35,19 @@ public class ClienteController {
         bo.insere(cliente);
         return "/cliente/formulario";
     }
+
+    @RequestMapping(value= "", method = RequestMethod.GET)
+    public ModelAndView lista(ModelMap model){
+        model.addAttribute("clientes", bo.lista());
+        return new ModelAndView("/cliente/lista", model);
+    }
+
+    //@PathVariable extrai o ID da url
+    @RequestMapping(value = "/edita/{id}", method = RequestMethod.GET)
+    public ModelAndView edita(@PathVariable("id") Long id, ModelMap model){
+        model.addAttribute("cliente", bo.pesquisaPeloId(id));
+        return new ModelAndView("/cliente/formulario", model);
+    }
+
+
 }
