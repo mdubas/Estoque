@@ -1,4 +1,4 @@
-package com.uninter.estoque.bo;
+package com.uninter.estoque.BO;
 
 import com.uninter.estoque.DAO.CRUD;
 import com.uninter.estoque.DAO.ClienteDAO;

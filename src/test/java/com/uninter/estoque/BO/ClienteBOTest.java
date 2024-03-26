@@ -1,4 +1,4 @@
-package com.uninter.estoque.bo;
+package com.uninter.estoque.BO;
 
 import com.uninter.estoque.model.Cliente;
 import com.uninter.estoque.model.Sexo;
