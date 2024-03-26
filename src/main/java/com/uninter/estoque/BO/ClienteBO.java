@@ -38,9 +38,12 @@ public class ClienteBO implements CRUD<Cliente, Long> {
         dao.remove(cliente);
 
     }
-
     public void ativa(Cliente cliente){
         cliente.setAtivo(true);
+        dao.atualiza(cliente);
+    }
+    public void inativa(Cliente cliente){
+        cliente.setAtivo(false);
         dao.atualiza(cliente);
     }
 }

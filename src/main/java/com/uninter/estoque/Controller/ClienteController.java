@@ -20,8 +20,8 @@ public class ClienteController {
 
 
     //exibe o formulário sempre que for realizado uma requisição na url indicada
-    @RequestMapping(value= "/novo", method = RequestMethod.GET)
-    public ModelAndView novo(ModelMap model){
+    @RequestMapping(value = "/novo", method = RequestMethod.GET)
+    public ModelAndView novo(ModelMap model) {
         model.addAttribute("cliente", new Cliente());
         return new ModelAndView("/cliente/formulario", model);
     }
@@ -31,23 +31,35 @@ public class ClienteController {
     //Thymeleaf vai criar um objeto chamado 'cliente', e apartir desse objeto irá montar os dados que vieram do formulário
     //pode usar o retorno em ModelAndView também, como acima. Funciona também o retorno como String.
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String salva(@ModelAttribute Cliente cliente){
+    public String salva(@ModelAttribute Cliente cliente) {
         bo.insere(cliente);
         return "/cliente/formulario";
     }
 
-    @RequestMapping(value= "", method = RequestMethod.GET)
-    public ModelAndView lista(ModelMap model){
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public ModelAndView lista(ModelMap model) {
         model.addAttribute("clientes", bo.lista());
         return new ModelAndView("/cliente/lista", model);
     }
 
     //@PathVariable extrai o ID da url
     @RequestMapping(value = "/edita/{id}", method = RequestMethod.GET)
-    public ModelAndView edita(@PathVariable("id") Long id, ModelMap model){
+    public ModelAndView edita(@PathVariable("id") Long id, ModelMap model) {
         model.addAttribute("cliente", bo.pesquisaPeloId(id));
         return new ModelAndView("/cliente/formulario", model);
     }
 
+    @RequestMapping(value = "/ativa/{id}", method = RequestMethod.GET)
+    public String ativa(@PathVariable("id") Long id) {
+        Cliente cliente = bo.pesquisaPeloId(id);
+        bo.ativa(cliente);
+        return "redirect:/clientes"; //recarrega a tela
+    }
 
+    @RequestMapping(value = "/inativa/{id}", method = RequestMethod.GET)
+    public String inativa(@PathVariable("id") Long id) {
+        Cliente cliente = bo.pesquisaPeloId(id);
+        bo.inativa(cliente);
+        return "redirect:/clientes";
+    }
 }
